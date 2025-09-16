@@ -10,7 +10,7 @@ body {
 .container {
     display: flex;
     justify-content: center;
-    padding: 100px 20px 20px 20px; /* padding top dla menu */
+    padding: 100px 20px 20px 20px; /* padding dla menu */
     flex-wrap: wrap;
 }
 
@@ -73,32 +73,35 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 20px #00ff00;
     margin: 20px;
+    text-align: center;
 }
 
 .dashboard-panel h2 {
     color: #00ff00;
-    text-align: center;
     margin-bottom: 20px;
     text-shadow: 0 0 10px #00ff00;
 }
 
-.stats {
+/* Wyśrodkowany licznik */
+.stats-center {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
 }
 
-.stat {
+.stats-center .stat {
     text-align: center;
 }
 
-.stat span {
+.stats-center .stat span {
     display: block;
-    font-size: 2rem;
+    font-size: 3rem;
     color: #00ff00;
-    text-shadow: 0 0 10px #00ff00;
+    text-shadow: 0 0 15px #00ff00;
 }
 
+/* Loga technologii */
 .tech-logos {
     display: flex;
     justify-content: center;
