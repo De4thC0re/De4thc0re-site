@@ -1,0 +1,122 @@
+/* Ogólne */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #000;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 100px 20px 20px 20px; /* padding top dla menu */
+    flex-wrap: wrap;
+}
+
+/* Hover Menu */
+.top-menu {
+    width: 100%;
+    background-color: #111;
+    padding: 10px 0;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.top-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    gap: 40px;
+}
+
+.top-menu ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    position: relative;
+    transition: 0.3s;
+}
+
+.top-menu ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    left: 0;
+    bottom: -3px;
+    background-color: #00ff00;
+    transition: 0.3s;
+}
+
+.top-menu ul li a:hover::after {
+    width: 100%;
+}
+
+.top-menu ul li a:hover {
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+/* Dashboard Panel */
+.dashboard-panel {
+    flex: 1;
+    min-width: 300px;
+    padding: 20px;
+    background-color: #111;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #00ff00;
+    margin: 20px;
+}
+
+.dashboard-panel h2 {
+    color: #00ff00;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat span {
+    display: block;
+    font-size: 2rem;
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+.tech-logos {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.tech {
+    background-color: #222;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.tech:hover {
+    box-shadow: 0 0 15px #00ff00;
+    transform: scale(1.1);
+}
