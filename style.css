@@ -6,50 +6,65 @@ body, html {
   color: #fff;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+header {
+  background-color: #1a1a1a;
+  padding: 15px 0;
   text-align: center;
 }
 
-header h1 {
-  font-size: 48px;
-  color: #00ff00;
-  margin-bottom: 40px;
-}
-
-.bio, .games {
-  background-color: #1a1a1a;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-}
-
-.bio h2, .games h2 {
-  color: #00ffff;
-  margin-bottom: 15px;
-}
-
-.bio p {
-  font-size: 18px;
-  line-height: 1.6;
-}
-
-.bio-button, .game-button {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 10px 25px;
-  background-color: #222;
+.nav-link {
   color: #0f0;
   text-decoration: none;
   font-weight: bold;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  margin: 0 20px;
+  font-size: 20px;
+  transition: 0.3s;
 }
 
-.bio-button:hover, .game-button:hover {
+.nav-link:hover {
+  color: #00ffff;
+}
+
+main {
+  max-width: 800px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.stats h2, .languages h2 {
+  color: #00ffff;
+  margin-bottom: 20px;
+}
+
+#repo-count {
+  font-size: 48px;
+  font-weight: bold;
+  color: #0f0;
+  transition: 0.3s;
+}
+
+#repo-count:hover {
+  color: #00ffff;
+}
+
+.lang-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.lang {
+  padding: 10px 20px;
+  background-color: #222;
+  border-radius: 8px;
+  transition: 0.3s;
+  cursor: default;
+}
+
+.lang:hover {
   background-color: #0f0;
   color: #111;
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
