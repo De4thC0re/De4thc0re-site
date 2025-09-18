@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>De4thC0re</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De4thC0re</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="loader">Wczytywanie...</div>
+<div id="content">
     <header>
         <button class="nav-btn" onclick="location.href='https://De4thC0re-bio.netlify.app'">BIO</button>
         <button class="nav-btn" onclick="location.href='https://De4thC0re-Games.netlify.app'">GAMES</button>
@@ -27,11 +29,11 @@
 
         <section class="terminal-section">
             <h2>Terminal</h2>
-            <div class="terminal" id="terminal">
-                <p>Ładowanie kodu...</p>
-            </div>
+            <div class="terminal" id="terminal"></div>
         </section>
     </main>
-    <script src="script.js"></script>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
