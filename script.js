@@ -1,26 +1,38 @@
-// Projekty (przykład) – możesz podmienić na fetch z GitHub API
-const projects = [
-    { name: "Projekt1", icon: "https://cdn-icons-png.flaticon.com/512/25/25231.png" },
-    { name: "Projekt2", icon: "https://cdn-icons-png.flaticon.com/512/25/25231.png" },
-    { name: "Projekt3", icon: "https://cdn-icons-png.flaticon.com/512/25/25231.png" },
-    { name: "Projekt4", icon: "https://cdn-icons-png.flaticon.com/512/25/25231.png" }
+const terminalEl = document.getElementById('terminal');
+
+const codeLines = [
+  "console.log('Hello World');",
+  "let x = 42;",
+  "function sum(a, b) { return a + b; }",
+  "const projects = fetchProjects();",
+  "for(let i=0; i<10; i++){console.log(i);}",
+  "import React from 'react';",
+  "if(user.isActive){run();}",
+  "while(true){doSomething();}",
+  "git commit -m 'Initial commit'",
+  "fetch('https://api.github.com/users/De4thC0re')",
+  "let score = 0;"
 ];
 
-const container = document.getElementById('projects-container');
+let lineCount = 0;
+const maxLinesBeforeClear = 10;
+const speed = 300; // 0.3 sekundy
 
-projects.forEach(proj => {
-    const card = document.createElement('div');
-    card.classList.add('project-card');
+function addRandomLine() {
+  const line = codeLines[Math.floor(Math.random() * codeLines.length)];
+  const p = document.createElement('p');
+  p.textContent = line;
+  terminalEl.appendChild(p);
+  lineCount++;
 
-    const img = document.createElement('img');
-    img.src = proj.icon;
-    img.alt = proj.name;
+  if(lineCount >= maxLinesBeforeClear){
+    setTimeout(() => {
+      terminalEl.innerHTML = '';
+      lineCount = 0;
+    }, speed);
+  }
 
-    const name = document.createElement('p');
-    name.textContent = proj.name;
+  setTimeout(addRandomLine, speed);
+}
 
-    card.appendChild(img);
-    card.appendChild(name);
-
-    container.appendChild(card);
-});
+addRandomLine();
