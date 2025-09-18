@@ -6,12 +6,13 @@ body, html {
   overflow-x: hidden;
   color: #0f0;
   text-align: center;
-  background: linear-gradient(270deg, #000000, #111111, #000000);
+  background: linear-gradient(270deg, #000000, #111111, #222222, #111111, #000000);
   background-size: 600% 600%;
-  animation: gradientShift 15s ease infinite;
+  animation: backgroundPulse 15s ease infinite;
+  transition: background 1s linear;
 }
 
-@keyframes gradientShift {
+@keyframes backgroundPulse {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
@@ -39,9 +40,14 @@ header {
   transform: scale(1.1);
 }
 
-main h1 {
+.neon-title {
   font-size: 48px;
   margin-top: 50px;
+  text-shadow:
+    0 0 5px #0f0,
+    0 0 10px #0f0,
+    0 0 20px #0f0,
+    0 0 40px #0f0;
 }
 
 .counter-container {
@@ -70,4 +76,23 @@ main h1 {
   color: #000;
   background: #0f0;
   transform: scale(1.2);
+}
+
+.terminal {
+  background: rgba(0,0,0,0.7);
+  color: #0f0;
+  font-family: 'Courier New', monospace;
+  padding: 15px;
+  margin: 30px auto;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #0f0;
+  min-height: 150px;
+  overflow: hidden;
+}
+
+.terminal p {
+  margin: 0;
+  line-height: 1.4;
 }
