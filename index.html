@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>De4thC0re - Strona główna</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De4thC0re</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <nav>
-    <button class="nav-btn" onclick="location.href='https://De4thC0re-bio.netlify.app'">BIO</button>
-    <button class="nav-btn" onclick="location.href='https://De4thC0re-Games.netlify.app'">PROJECTS</button>
-  </nav>
-</header>
-
-<main>
-  <h1>De4thC0re</h1>
-  <div class="counter-container">
-    Projekty: <span id="projects">0</span>
-  </div>
-  <ul class="langs">
-    <li>JavaScript</li>
-    <li>Python</li>
-    <li>HTML</li>
-    <li>CSS</li>
-    <li>Java</li>
-  </ul>
-</main>
-
-<script src="script.js"></script>
+    <header>
+        <button class="nav-btn" onclick="location.href='https://De4thC0re-bio.netlify.app'">BIO</button>
+        <button class="nav-btn" onclick="location.href='https://De4thC0re-Games.netlify.app'">GAMES</button>
+    </header>
+    <main>
+        <h1 class="neon-title">De4thC0re</h1>
+        <div class="counter-container">
+            Projekty: <span id="projects">0</span>
+        </div>
+        <ul class="langs">
+            <li>JavaScript</li>
+            <li>Python</li>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>Java</li>
+        </ul>
+        <div class="terminal" id="terminal">
+            <p>Ładowanie kodu...</p>
+        </div>
+    </main>
+    <script src="script.js"></script>
 </body>
 </html>
