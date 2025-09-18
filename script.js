@@ -29,7 +29,7 @@ async function getProjectsCount() {
 
 getProjectsCount();
 
-// Mini terminal z losowym kodem
+// Terminal z losowym kodem
 const terminalEl = document.getElementById('terminal');
 const codeLines = [
   "console.log('Hello World');",
@@ -45,17 +45,25 @@ const codeLines = [
   "let score = 0;"
 ];
 
+let lineCount = 0;
+const maxLinesBeforeClear = 10;
+const speed = 300; // 0.3 sekundy
+
 function addRandomLine() {
   const line = codeLines[Math.floor(Math.random() * codeLines.length)];
   const p = document.createElement('p');
   p.textContent = line;
   terminalEl.appendChild(p);
+  lineCount++;
 
-  if(terminalEl.children.length > 10) {
-    terminalEl.removeChild(terminalEl.children[0]);
+  if(lineCount >= maxLinesBeforeClear){
+    setTimeout(() => {
+      terminalEl.innerHTML = '';
+      lineCount = 0;
+    }, speed);
   }
 
-  setTimeout(addRandomLine, 2000);
+  setTimeout(addRandomLine, speed);
 }
 
 addRandomLine();
