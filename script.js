@@ -14,7 +14,7 @@ const cursor = document.createElement('span');
 cursor.className='cursor';
 terminalEl.appendChild(cursor);
 
-// particle
+// particles
 for(let i=0;i<50;i++){
     const p=document.createElement('div');
     p.className='particle';
@@ -25,7 +25,7 @@ for(let i=0;i<50;i++){
     terminalEl.appendChild(p);
 }
 
-// kod do wpisywania
+// kod w terminalu
 const codeLines=[
     "console.log('Hello world');",
     "function add(a,b){",
