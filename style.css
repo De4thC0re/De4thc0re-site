@@ -1,70 +1,74 @@
 body, html {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #111;
-  color: #fff;
+  font-family: 'Arial', sans-serif;
+  height: 100%;
+  overflow-x: hidden;
+  background: linear-gradient(-45deg, #0f0, #00f, #f0f, #0ff);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  color: #0f0;
+  text-align: center;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 header {
-  background-color: #1a1a1a;
-  padding: 15px 0;
-  text-align: center;
+  padding: 20px;
+  background: rgba(0,0,0,0.5);
 }
 
-.nav-link {
+.nav-btn {
+  background: transparent;
+  border: 2px solid #0f0;
   color: #0f0;
-  text-decoration: none;
-  font-weight: bold;
-  margin: 0 20px;
-  font-size: 20px;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
   transition: 0.3s;
+  font-size: 16px;
+  border-radius: 8px;
 }
 
-.nav-link:hover {
-  color: #00ffff;
+.nav-btn:hover {
+  color: #000;
+  background: #0f0;
+  transform: scale(1.1);
 }
 
-main {
-  max-width: 800px;
-  margin: 40px auto;
-  text-align: center;
-}
-
-.stats h2, .languages h2 {
-  color: #00ffff;
-  margin-bottom: 20px;
-}
-
-#repo-count {
+main h1 {
   font-size: 48px;
-  font-weight: bold;
-  color: #0f0;
-  transition: 0.3s;
+  margin-top: 50px;
 }
 
-#repo-count:hover {
-  color: #00ffff;
+.counter-container {
+  font-size: 32px;
+  margin: 20px 0;
 }
 
-.lang-list {
+.langs {
+  list-style: none;
+  padding: 0;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 15px;
-  margin-top: 20px;
 }
 
-.lang {
-  padding: 10px 20px;
-  background-color: #222;
+.langs li {
+  margin: 10px 15px;
+  padding: 5px 10px;
+  border: 2px solid #0f0;
   border-radius: 8px;
   transition: 0.3s;
-  cursor: default;
+  cursor: pointer;
 }
 
-.lang:hover {
-  background-color: #0f0;
-  color: #111;
-  transform: scale(1.1);
+.langs li:hover {
+  color: #000;
+  background: #0f0;
+  transform: scale(1.2);
 }
