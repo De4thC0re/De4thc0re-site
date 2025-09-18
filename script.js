@@ -47,7 +47,7 @@ const codeLines = [
 
 let lineCount = 0;
 const maxLinesBeforeClear = 10;
-const speed = 300; // 0.3 sekundy
+const speed = 600; // 0.6 sekundy
 
 function addRandomLine() {
   const line = codeLines[Math.floor(Math.random() * codeLines.length)];
