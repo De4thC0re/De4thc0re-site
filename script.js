@@ -1,69 +1,26 @@
-// Licznik projektów z GitHub
-const projectsEl = document.getElementById('projects');
-const githubUsername = 'De4thC0re';
-
-async function getProjectsCount() {
-    try {
-        const response = await fetch(`https://api.github.com/users/${githubUsername}/repos`);
-        const data = await response.json();
-
-        const totalProjects = data.length;
-
-        let current = 0;
-        const speed = 50;
-
-        function increaseCounter() {
-            if(current < totalProjects) {
-                current++;
-                projectsEl.innerText = current;
-                setTimeout(increaseCounter, speed);
-            }
-        }
-
-        increaseCounter();
-    } catch(err) {
-        console.error('Błąd pobierania repozytoriów:', err);
-        projectsEl.innerText = '0';
-    }
-}
-
-getProjectsCount();
-
-// Terminal z losowym kodem
-const terminalEl = document.getElementById('terminal');
-const codeLines = [
-  "console.log('Hello World');",
-  "let x = 42;",
-  "function sum(a, b) { return a + b; }",
-  "const projects = fetchProjects();",
-  "for(let i=0; i<10; i++){console.log(i);}",
-  "import React from 'react';",
-  "if(user.isActive){run();}",
-  "while(true){doSomething();}",
-  "git commit -m 'Initial commit'",
-  "fetch('https://api.github.com/users/De4thC0re')",
-  "let score = 0;"
+// Projekty (przykład) – możesz podmienić na fetch z GitHub API
+const projects = [
+    { name: "Projekt1", icon: "https://cdn-icons-png.flaticon.com/512/25/25231.png" },
+    { name: "Projekt2", icon: "https://cdn-icons-png.flaticon.com/512/25/25231.png" },
+    { name: "Projekt3", icon: "https://cdn-icons-png.flaticon.com/512/25/25231.png" },
+    { name: "Projekt4", icon: "https://cdn-icons-png.flaticon.com/512/25/25231.png" }
 ];
 
-let lineCount = 0;
-const maxLinesBeforeClear = 10;
-const speed = 600; // 0.6 sekundy
+const container = document.getElementById('projects-container');
 
-function addRandomLine() {
-  const line = codeLines[Math.floor(Math.random() * codeLines.length)];
-  const p = document.createElement('p');
-  p.textContent = line;
-  terminalEl.appendChild(p);
-  lineCount++;
+projects.forEach(proj => {
+    const card = document.createElement('div');
+    card.classList.add('project-card');
 
-  if(lineCount >= maxLinesBeforeClear){
-    setTimeout(() => {
-      terminalEl.innerHTML = '';
-      lineCount = 0;
-    }, speed);
-  }
+    const img = document.createElement('img');
+    img.src = proj.icon;
+    img.alt = proj.name;
 
-  setTimeout(addRandomLine, speed);
-}
+    const name = document.createElement('p');
+    name.textContent = proj.name;
 
-addRandomLine();
+    card.appendChild(img);
+    card.appendChild(name);
+
+    container.appendChild(card);
+});
