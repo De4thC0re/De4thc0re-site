@@ -4,22 +4,21 @@ body, html {
   font-family: 'Arial', sans-serif;
   height: 100%;
   overflow-x: hidden;
-  background: #000;
+  background-color: #000;
   color: #0f0;
   text-align: center;
-  font-weight: bold;
-  animation: brightnessPulse 5s ease-in-out infinite;
+  transition: background-color 1s linear;
+  animation: backgroundPulse 5s infinite alternate;
 }
 
-@keyframes brightnessPulse {
-  0% { filter: brightness(0.5); }
-  50% { filter: brightness(1); }
-  100% { filter: brightness(0.5); }
+@keyframes backgroundPulse {
+  0% { background-color: #000; }
+  50% { background-color: #222; }
+  100% { background-color: #000; }
 }
 
 header {
   padding: 20px;
-  background: rgba(0,0,0,0.5);
 }
 
 .nav-btn {
@@ -32,7 +31,6 @@ header {
   transition: 0.3s;
   font-size: 16px;
   border-radius: 8px;
-  font-weight: bold;
 }
 
 .nav-btn:hover {
@@ -44,13 +42,11 @@ header {
 main h1 {
   font-size: 48px;
   margin-top: 50px;
-  font-weight: bold;
 }
 
 .counter-container {
   font-size: 32px;
   margin: 20px 0;
-  font-weight: bold;
 }
 
 .langs {
@@ -68,7 +64,6 @@ main h1 {
   border-radius: 8px;
   transition: 0.3s;
   cursor: pointer;
-  font-weight: bold;
 }
 
 .langs li:hover {
