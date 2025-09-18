@@ -27,7 +27,7 @@ for(let i=0;i<50;i++){
 
 // kod w terminalu
 const codeLines=[
-    "console.log('Hello world');",
+    "console.log('Witaj, Świecie');",
     "function add(a,b){",
     "  return a+b;",
     "}",
