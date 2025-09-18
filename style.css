@@ -102,15 +102,18 @@ header {
     margin: 0 auto;
     width: 80%;
     max-width: 600px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px #0f0;
     height: 200px;
     overflow: hidden;
     position: relative;
     font-size: 14px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border: 3px solid #0f0;
+    box-shadow: 0 0 20px #0f0, 0 0 40px #0f0, 0 0 60px #0f0;
+    border-radius: 5px;
+    padding-top: 10px;
 }
 
 .cursor {
