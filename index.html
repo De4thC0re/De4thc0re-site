@@ -3,33 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>De4thC0re</title>
+<title>De4thC0re - Strona główna</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
   <nav>
-    <a href="https://de4thc0re-bio.vercel.app" class="nav-link">BIO</a>
-    <a href="https://de4thc0re-games.vercel.app" class="nav-link">GAMES</a>
+    <button class="nav-btn" onclick="location.href='https://De4thC0re-bio.netlify.app'">BIO</button>
+    <button class="nav-btn" onclick="location.href='https://De4thC0re-Games.netlify.app'">PROJECTS</button>
   </nav>
 </header>
 
 <main>
-  <section class="stats">
-    <h2>Projekty:</h2>
-    <div id="repo-count">Ładowanie...</div>
-  </section>
-
-  <section class="languages">
-    <h2>Języki programowania</h2>
-    <div class="lang-list">
-      <span class="lang">JavaScript</span>
-      <span class="lang">Java</span>
-      <span class="lang">Python</span>
-      <span class="lang">C++</span>
-      <span class="lang">HTML/CSS</span>
-    </div>
-  </section>
+  <h1>De4thC0re</h1>
+  <div class="counter-container">
+    Projekty: <span id="projects">0</span>
+  </div>
+  <ul class="langs">
+    <li>JavaScript</li>
+    <li>Python</li>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>Java</li>
+  </ul>
 </main>
 
 <script src="script.js"></script>
