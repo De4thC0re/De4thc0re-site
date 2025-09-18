@@ -13,19 +13,24 @@
     </header>
     <main>
         <h1 class="neon-title">De4thC0re</h1>
-        <div class="counter-container">
-            Projekty: <span id="projects">0</span>
-        </div>
-        <ul class="langs">
-            <li>JavaScript</li>
-            <li>Python</li>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>Java</li>
-        </ul>
-        <div class="terminal" id="terminal">
-            <p>Ładowanie kodu...</p>
-        </div>
+
+        <section class="langs-section">
+            <h2>Języki Programowania</h2>
+            <div class="langs">
+                <div class="lang" title="JavaScript"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS"></div>
+                <div class="lang" title="Python"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"></div>
+                <div class="lang" title="HTML"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML"></div>
+                <div class="lang" title="CSS"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS"></div>
+                <div class="lang" title="Java"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java"></div>
+            </div>
+        </section>
+
+        <section class="projects-section">
+            <h2>Projekty</h2>
+            <div class="projects" id="projects-container">
+                <!-- Projekty będą wstrzykiwane przez JS -->
+            </div>
+        </section>
     </main>
     <script src="script.js"></script>
 </body>
