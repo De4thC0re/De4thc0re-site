@@ -1,5 +1,5 @@
 window.addEventListener('load', ()=>{
-    setTimeout(()=>{
+    setTimeout(()=>
         document.getElementById('loader').classList.add('hide');
         setTimeout(()=>{
             document.getElementById('content').style.display='block';
