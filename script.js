@@ -4,7 +4,7 @@ window.addEventListener('load', ()=>{
         setTimeout(()=>{
             document.getElementById('content').style.display='block';
             fetchGitHubStats();
-            startTyping();
+            startTerminal();
         },800);
     },1200);
 });
@@ -85,9 +85,7 @@ const cursor = document.createElement('span');
 cursor.className = 'cursor';
 terminalEl.appendChild(cursor);
 
-let typing = false;
-
-function startTyping() {
+function startTerminal() {
     terminalEl.innerHTML = '';
     terminalEl.appendChild(cursor);
     typeNextLine();
@@ -109,13 +107,10 @@ function typeLine(line, callback){
 }
 
 function typeNextLine(){
-    if(typing) return;
     if(allCodeLines.length === 0) return;
-    typing = true;
     const line = allCodeLines[Math.floor(Math.random() * allCodeLines.length)];
     typeLine(line, ()=>{
-        typing = false;
-        if(terminalEl.children.length > 50){
+        while(terminalEl.childElementCount > 6){
             terminalEl.removeChild(terminalEl.children[0]);
         }
         setTimeout(typeNextLine, 400);
