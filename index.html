@@ -8,42 +8,39 @@
 </head>
 <body>
 <div id="loader">Ładowanie...</div>
-
 <div id="content">
-    <header class="hero">
-        <h1 class="neon-title">De4thC0re</h1>
-        <p class="hero-desc">Full-stack Developer | GitHub Active</p>
-        <button class="nav-btn" onclick="location.href='https://de4thc0re-bio.netlify.app'">BIO</button>
+    <header>
+        <button class="nav-btn" onclick="location.href='/bio'">BIO</button>
+        <button class="nav-btn" onclick="location.href=''">SOON</button>
     </header>
 
-    <section class="stats-section">
-        <h2>Progres</h2>
-        <div class="stats">
-            <div class="stat">
-                <span class="counter" id="commits">0</span>
-                <p>Commity</p>
-            </div>
-            <div class="stat">
-                <span class="counter" id="repos">0</span>
-                <p>Projekty</p>
-            </div>
-            <div class="stat">
-                <span class="counter" id="followers">0</span>
-                <p>Followers</p>
-            </div>
-            <div class="stat">
-                <span class="counter" id="lines">0</span>
-                <p>Linie kodu</p>
-            </div>
-        </div>
-    </section>
+    <main>
+        <h1 class="neon-title">De4thC0re</h1>
 
-    <section class="terminal-section">
-        <h2>Terminal</h2>
-        <div class="terminal" id="terminal"></div>
-    </section>
+        <section class="stats-section">
+            <div class="stat-box">
+                <h2>Projekty</h2>
+                <p id="repos">0</p>
+            </div>
+            <div class="stat-box">
+                <h2>Commity</h2>
+                <p id="commits">0</p>
+            </div>
+            <div class="stat-box">
+                <h2>Followers</h2>
+                <p id="followers">0</p>
+            </div>
+            <div class="stat-box">
+                <h2>Linie kodu</h2>
+                <p id="lines">0</p>
+            </div>
+        </section>
 
-    <div id="particles"></div>
+        <section class="terminal-section">
+            <h2>Terminal</h2>
+            <div class="terminal" id="terminal"></div>
+        </section>
+    </main>
 </div>
 
 <script src="script.js"></script>
