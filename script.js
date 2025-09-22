@@ -1,4 +1,3 @@
-// Loader
 window.addEventListener('load', ()=>{
     setTimeout(()=>{
         document.getElementById('loader').classList.add('hide');
@@ -11,21 +10,67 @@ window.addEventListener('load', ()=>{
     },1500);
 });
 
-// Animowane liczniki z GitHub API
-function fetchGitHubStats(){
-    const username = 'de4thc0re'; // <-- wpisz swój nick GitHub
-    fetch(`https://api.github.com/users/${username}`)
-        .then(res => res.json())
-        .then(data => {
-            animateCounter(document.getElementById('repos'), data.public_repos);
-            animateCounter(document.getElementById('followers'), data.followers);
-            animateCounter(document.getElementById('commits'), 523); // statycznie, bo commits wymagają innego endpointu
-        });
+const username = 'de4thc0re';
+let allCodeLines = [];
+
+async function fetchGitHubStats(){
+    try {
+        const reposRes = await fetch(`https://api.github.com/users/${username}/repos`);
+        const repos = await reposRes.json();
+        animateCounter(document.getElementById('repos'), repos.length);
+
+        const userRes = await fetch(`https://api.github.com/users/${username}`);
+        const user = await userRes.json();
+        animateCounter(document.getElementById('followers'), user.followers);
+
+        let totalCommits = 0;
+        let totalLines = 0;
+
+        for(let repo of repos){
+            const commitsRes = await fetch(`https://api.github.com/repos/${username}/${repo.name}/commits?per_page=1`);
+            const linkHeader = commitsRes.headers.get('Link');
+            let commitsCount = 0;
+            if(linkHeader){
+                const match = linkHeader.match(/&page=(\d+)>; rel="last"/);
+                if(match) commitsCount = parseInt(match[1]);
+            } else {
+                const commits = await commitsRes.json();
+                commitsCount = commits.length;
+            }
+            totalCommits += commitsCount;
+
+            const contentsRes = await fetch(`https://api.github.com/repos/${username}/${repo.name}/contents`);
+            const files = await contentsRes.json();
+            for(let file of files){
+                if(file.type === 'file'){
+                    const text = await fetch(file.download_url).then(r=>r.text());
+                    const lines = text.split('\n');
+                    totalLines += lines.length;
+                    allCodeLines.push(...lines);
+                }
+            }
+        }
+
+        animateCounter(document.getElementById('commits'), totalCommits);
+        animateCounter(document.getElementById('lines'), totalLines);
+
+    } catch(e){
+        animateCounter(document.getElementById('commits'), 523);
+        animateCounter(document.getElementById('repos'), 12);
+        animateCounter(document.getElementById('followers'), 42);
+        animateCounter(document.getElementById('lines'), 1024);
+        allCodeLines = [
+            "console.log('Witaj, Świecie');",
+            "let x = 10;",
+            "x += 5;",
+            "console.log(x);"
+        ];
+    }
 }
 
 function animateCounter(el, target){
     el.innerText = '0';
-    const update = () => {
+    const update = ()=>{
         const current = +el.innerText;
         const increment = target / 100;
         if(current < target){
@@ -38,26 +83,10 @@ function animateCounter(el, target){
     update();
 }
 
-// Terminal z losowym kodem
 const terminalEl = document.getElementById('terminal');
 const cursor = document.createElement('span');
 cursor.className='cursor';
 terminalEl.appendChild(cursor);
-
-const codeLines = [
-    "console.log('Witaj, Świecie');",
-    "function add(a,b){",
-    "  return a+b;",
-    "}",
-    "console.log(add(5,7));",
-    "let x = 10;",
-    "x += 5;",
-    "console.log(x);",
-    "const hello = name => `Cześć, ${name}!`;",
-    "console.log(hello('De4thC0re'));"
-];
-
-let lineIndex = 0;
 
 function typeLine(line, callback){
     let charIndex = 0;
@@ -71,32 +100,23 @@ function typeLine(line, callback){
             cursor.style.display='inline-block';
             if(callback) callback();
         }
-    },50);
+    },30);
 }
 
 function typeNextLine(){
-    if(lineIndex < codeLines.length){
-        typeLine(codeLines[lineIndex], ()=>{
-            lineIndex++;
-            setTimeout(typeNextLine, 600);
-        });
-    } else {
-        setTimeout(()=>{
-            terminalEl.innerHTML = '';
-            lineIndex = 0;
-            typeNextLine();
-        }, 2000);
-    }
+    if(allCodeLines.length === 0) return;
+    const line = allCodeLines[Math.floor(Math.random() * allCodeLines.length)];
+    typeLine(line, ()=>{
+        setTimeout(typeNextLine, 400);
+    });
 }
 
 function startTyping(){
-    lineIndex = 0;
     terminalEl.innerHTML = '';
     terminalEl.appendChild(cursor);
     typeNextLine();
 }
 
-// Proste particles
 function initParticles(){
     const container = document.getElementById('particles');
     for(let i=0;i<50;i++){
