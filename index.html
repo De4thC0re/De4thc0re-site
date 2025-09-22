@@ -3,35 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>De4thC0re</title>
+<title>De4thC0re Dashboard</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div id="loader">Ładowanie...</div>
+
 <div id="content">
-    <header>
-        <button class="nav-btn" onclick="location.href='https://De4thC0re-bio.vercel.app'">BIO</button>
-        <button class="nav-btn" onclick="location.href='https://De4thC0re-Games.vercel.app'">GAMES</button>
+    <!-- Nagłówek / Hero -->
+    <header class="hero">
+        <h1 class="neon-title">De4thC0re</h1>
+        <p class="hero-desc">Full-stack Developer | GitHub Active</p>
     </header>
 
-    <main>
-        <h1 class="neon-title">De4thC0re</h1>
-
-        <section class="langs-section">
-            <h2>Potrafię</h2>
-            <div class="langs">
-                <div class="lang" title="JavaScript"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS"></div>
-                <div class="lang" title="HTML"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML"></div>
-                <div class="lang" title="CSS"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS"></div>
-                <div class="lang" title="Java"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java"></div>
+    <!-- Sekcja z API / dynamiczne statystyki -->
+    <section class="stats-section">
+        <h2>Progres</h2>
+        <div class="stats">
+            <div class="stat">
+                <span class="counter" id="commits">0</span>
+                <p>Commity</p>
             </div>
-        </section>
+            <div class="stat">
+                <span class="counter" id="repos">0</span>
+                <p>Projekty</p>
+            </div>
+            <div class="stat">
+                <span class="counter" id="followers">0</span>
+                <p>Followers</p>
+            </div>
+        </div>
+    </section>
 
-        <section class="terminal-section">
-            <h2>Terminal</h2>
-            <div class="terminal" id="terminal"></div>
-        </section>
-    </main>
+    <!-- Efekty wizualne -->
+    <div id="particles"></div>
 </div>
 
 <script src="script.js"></script>
