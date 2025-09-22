@@ -64,12 +64,12 @@ async function countLinesRecursive(owner, repo, path=''){
     const items = await res.json();
     let lines = 0;
     for(let item of items){
-        if(item.type === 'file' && /\.(js|ts|java|py|html|css)$/.test(item.name)){
+        if(item.type === 'file' && /\.(js|ts|java|py|html|css)$/i.test(item.name)){
             const text = await fetch(item.download_url).then(r=>r.text());
             const fileLines = text.split('\n');
             lines += fileLines.length;
             allCodeLines.push(...fileLines);
-        } else if(item.type === 'dir'){
+        } else if(item.type === 'dir' && !/(node_modules|dist|build)/i.test(item.name)){
             lines += await countLinesRecursive(owner, repo, item.path);
         }
     }
