@@ -39,16 +39,7 @@ async function fetchGitHubStats(){
             }
             totalCommits += commitsCount;
 
-            const contentsRes = await fetch(`https://api.github.com/repos/${username}/${repo.name}/contents`);
-            const files = await contentsRes.json();
-            for(let file of files){
-                if(file.type === 'file'){
-                    const text = await fetch(file.download_url).then(r=>r.text());
-                    const lines = text.split('\n');
-                    totalLines += lines.length;
-                    allCodeLines.push(...lines);
-                }
-            }
+            totalLines += await countLinesRecursive(username, repo.name);
         }
 
         animateCounter(document.getElementById('commits'), totalCommits);
@@ -66,6 +57,23 @@ async function fetchGitHubStats(){
             "console.log(x);"
         ];
     }
+}
+
+async function countLinesRecursive(owner, repo, path=''){
+    const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`);
+    const items = await res.json();
+    let lines = 0;
+    for(let item of items){
+        if(item.type === 'file' && /\.(js|ts|java|py|html|css)$/.test(item.name)){
+            const text = await fetch(item.download_url).then(r=>r.text());
+            const fileLines = text.split('\n');
+            lines += fileLines.length;
+            allCodeLines.push(...fileLines);
+        } else if(item.type === 'dir'){
+            lines += await countLinesRecursive(owner, repo, item.path);
+        }
+    }
+    return lines;
 }
 
 function animateCounter(el, target){
