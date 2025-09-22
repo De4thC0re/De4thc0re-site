@@ -11,6 +11,12 @@ window.addEventListener('load', ()=>{
 });
 
 const username = 'de4thc0re';
+const fallbackStats = {
+    commits: 120,
+    projects: 3,
+    followers: 0,
+    lines: 2011
+};
 let allCodeLines = [];
 
 async function fetchGitHubStats(){
@@ -27,26 +33,42 @@ async function fetchGitHubStats(){
         let totalLines = 0;
 
         for(let repo of repos){
-            const commitsRes = await fetch(`https://api.github.com/repos/${username}/${repo.name}/commits?per_page=1`);
-            const linkHeader = commitsRes.headers.get('Link');
-            let commitsCount = 0;
-            if(linkHeader){
-                const match = linkHeader.match(/&page=(\d+)>; rel="last"/);
-                if(match) commitsCount = parseInt(match[1]);
-            } else {
-                const commits = await commitsRes.json();
-                commitsCount = commits.length;
-            }
-            totalCommits += commitsCount;
+            try{
+                const commitsRes = await fetch(`https://api.github.com/repos/${username}/${repo.name}/commits?per_page=1`);
+                const linkHeader = commitsRes.headers.get('Link');
+                let commitsCount = 0;
+                if(linkHeader){
+                    const match = linkHeader.match(/&page=(\d+)>; rel="last"/);
+                    if(match) commitsCount = parseInt(match[1]);
+                } else {
+                    const commits = await commitsRes.json();
+                    commitsCount = commits.length;
+                }
+                totalCommits += commitsCount;
 
-            totalLines += await countLinesRecursive(username, repo.name);
+                totalLines += await countLinesRecursive(username, repo.name);
+            }catch(e){
+                console.warn('Błąd w repo', repo.name, e);
+            }
         }
 
-        animateCounter(document.getElementById('commits'), totalCommits, 10);
-        animateCounter(document.getElementById('lines'), totalLines, 5);
+        animateCounter(document.getElementById('commits'), totalCommits || fallbackStats.commits, 10);
+        animateCounter(document.getElementById('lines'), totalLines || fallbackStats.lines, 5);
 
     } catch(e){
-        console.error('GitHub API error:', e);
+        console.warn('GitHub API error, używam fallback', e);
+        animateCounter(document.getElementById('commits'), fallbackStats.commits, 10);
+        animateCounter(document.getElementById('repos'), fallbackStats.projects, 50);
+        animateCounter(document.getElementById('followers'), fallbackStats.followers, 30);
+        animateCounter(document.getElementById('lines'), fallbackStats.lines, 5);
+        allCodeLines = [
+            "console.log('Hello World');",
+            "let x = 10;",
+            "x += 5;",
+            "function add(a,b){ return a+b; }",
+            "document.querySelector('h1').textContent = 'De4thC0re';",
+            "for(let i=0;i<10;i++){ console.log(i); }"
+        ];
     }
 }
 
@@ -82,6 +104,7 @@ function animateCounter(el, target, speed){
     update();
 }
 
+// Terminal
 const terminalEl = document.getElementById('terminal');
 const cursor = document.createElement('span');
 cursor.className = 'cursor';
@@ -132,6 +155,7 @@ function typeNextLine(){
     });
 }
 
+// Particles
 function initParticles(){
     const container = document.getElementById('particles');
     for(let i=0;i<50;i++){
