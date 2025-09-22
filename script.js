@@ -12,11 +12,10 @@ window.addEventListener('load', ()=>{
 const username = 'de4thc0re';
 let allCodeLines = [];
 
-async function fetchGitHubStats(){
+async function fetchGitHubStats() {
     try {
         const reposRes = await fetch(`https://api.github.com/users/${username}/repos`);
         const repos = await reposRes.json();
-
         animateCounter(document.getElementById('repos'), repos.length, 50);
 
         const userRes = await fetch(`https://api.github.com/users/${username}`);
@@ -26,38 +25,39 @@ async function fetchGitHubStats(){
         let totalCommits = 0;
         let totalLines = 0;
 
-        for(let repo of repos){
-            try{
+        for (let repo of repos) {
+            try {
                 const branch = repo.default_branch;
                 const commitsRes = await fetch(`https://api.github.com/repos/${username}/${repo.name}/commits?sha=${branch}&per_page=100`);
                 const commits = await commitsRes.json();
                 totalCommits += commits.length;
 
                 totalLines += await countLinesRecursive(username, repo.name);
-            }catch(e){
-                console.warn('Błąd w repo', repo.name, e);
+            } catch (e) {
+                console.warn('Błąd repo', repo.name, e);
             }
         }
 
         animateCounter(document.getElementById('commits'), totalCommits, 10);
         animateCounter(document.getElementById('lines'), totalLines, 5);
 
-    } catch(e){
+    } catch (e) {
         console.error('Błąd GitHub API', e);
     }
 }
 
-async function countLinesRecursive(owner, repo, path=''){
+async function countLinesRecursive(owner, repo, path='') {
     const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`);
     const items = await res.json();
     let lines = 0;
-    for(let item of items){
-        if(item.type === 'file' && /\.(js|ts|java|py|html|css)$/i.test(item.name)){
+
+    for (let item of items) {
+        if (item.type === 'file' && /\.(js|ts|java|py|html|css)$/i.test(item.name)) {
             const text = await fetch(item.download_url).then(r=>r.text());
-            const fileLines = text.split('\n');
+            const fileLines = text.split('\n').filter(l => l.trim() !== '');
             lines += fileLines.length;
             allCodeLines.push(...fileLines);
-        } else if(item.type === 'dir' && !/(node_modules|dist|build)/i.test(item.name)){
+        } else if (item.type === 'dir' && !/(node_modules|dist|build)/i.test(item.name)) {
             lines += await countLinesRecursive(owner, repo, item.path);
         }
     }
@@ -86,41 +86,26 @@ cursor.className = 'cursor';
 terminalEl.appendChild(cursor);
 
 let typing = false;
-function startTyping(){
+
+function startTyping() {
     terminalEl.innerHTML = '';
     terminalEl.appendChild(cursor);
-    typeFetching();
-}
-
-function typeFetching(){
-    const fetchingText = "Fetching code...";
-    let charIndex = 0;
-    cursor.style.display = 'none';
-    const interval = setInterval(()=>{
-        terminalEl.innerHTML += fetchingText[charIndex];
-        charIndex++;
-        if(charIndex === fetchingText.length){
-            clearInterval(interval);
-            terminalEl.innerHTML += "<br>";
-            cursor.style.display = 'inline-block';
-            setTimeout(typeNextLine, 800);
-        }
-    },50);
+    typeNextLine();
 }
 
 function typeLine(line, callback){
     let charIndex = 0;
-    cursor.style.display='none';
+    cursor.style.display = 'none';
     const interval = setInterval(()=>{
         terminalEl.innerHTML += line[charIndex];
         charIndex++;
         if(charIndex === line.length){
             clearInterval(interval);
             terminalEl.innerHTML += "<br>";
-            cursor.style.display='inline-block';
+            cursor.style.display = 'inline-block';
             if(callback) callback();
         }
-    },30);
+    }, 30);
 }
 
 function typeNextLine(){
