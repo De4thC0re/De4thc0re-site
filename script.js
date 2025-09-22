@@ -5,8 +5,8 @@ window.addEventListener('load', ()=>{
             document.getElementById('content').style.display='block';
             fetchGitHubStats();
             startTyping();
-        },1000);
-    },1500);
+        },800);
+    },1200);
 });
 
 const username = 'de4thc0re';
