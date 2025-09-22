@@ -5,24 +5,18 @@ window.addEventListener('load', ()=>{
             document.getElementById('content').style.display='block';
             fetchGitHubStats();
             startTyping();
-            initParticles();
         },1000);
     },1500);
 });
 
 const username = 'de4thc0re';
-const fallbackStats = {
-    commits: 120,
-    projects: 3,
-    followers: 0,
-    lines: 2011
-};
 let allCodeLines = [];
 
 async function fetchGitHubStats(){
     try {
         const reposRes = await fetch(`https://api.github.com/users/${username}/repos`);
         const repos = await reposRes.json();
+
         animateCounter(document.getElementById('repos'), repos.length, 50);
 
         const userRes = await fetch(`https://api.github.com/users/${username}`);
@@ -34,17 +28,10 @@ async function fetchGitHubStats(){
 
         for(let repo of repos){
             try{
-                const commitsRes = await fetch(`https://api.github.com/repos/${username}/${repo.name}/commits?per_page=1`);
-                const linkHeader = commitsRes.headers.get('Link');
-                let commitsCount = 0;
-                if(linkHeader){
-                    const match = linkHeader.match(/&page=(\d+)>; rel="last"/);
-                    if(match) commitsCount = parseInt(match[1]);
-                } else {
-                    const commits = await commitsRes.json();
-                    commitsCount = commits.length;
-                }
-                totalCommits += commitsCount;
+                const branch = repo.default_branch;
+                const commitsRes = await fetch(`https://api.github.com/repos/${username}/${repo.name}/commits?sha=${branch}&per_page=100`);
+                const commits = await commitsRes.json();
+                totalCommits += commits.length;
 
                 totalLines += await countLinesRecursive(username, repo.name);
             }catch(e){
@@ -52,23 +39,11 @@ async function fetchGitHubStats(){
             }
         }
 
-        animateCounter(document.getElementById('commits'), totalCommits || fallbackStats.commits, 10);
-        animateCounter(document.getElementById('lines'), totalLines || fallbackStats.lines, 5);
+        animateCounter(document.getElementById('commits'), totalCommits, 10);
+        animateCounter(document.getElementById('lines'), totalLines, 5);
 
     } catch(e){
-        console.warn('GitHub API error, używam fallback', e);
-        animateCounter(document.getElementById('commits'), fallbackStats.commits, 10);
-        animateCounter(document.getElementById('repos'), fallbackStats.projects, 50);
-        animateCounter(document.getElementById('followers'), fallbackStats.followers, 30);
-        animateCounter(document.getElementById('lines'), fallbackStats.lines, 5);
-        allCodeLines = [
-            "console.log('Hello World');",
-            "let x = 10;",
-            "x += 5;",
-            "function add(a,b){ return a+b; }",
-            "document.querySelector('h1').textContent = 'De4thC0re';",
-            "for(let i=0;i<10;i++){ console.log(i); }"
-        ];
+        console.error('Błąd GitHub API', e);
     }
 }
 
@@ -160,18 +135,4 @@ function typeNextLine(){
         }
         setTimeout(typeNextLine, 400);
     });
-}
-
-// Particles
-function initParticles(){
-    const container = document.getElementById('particles');
-    for(let i=0;i<50;i++){
-        const p = document.createElement('div');
-        p.className='particle';
-        p.style.left=Math.random()*100+'%';
-        p.style.top=Math.random()*100+'%';
-        p.style.width=p.style.height=(Math.random()*3+1)+'px';
-        p.style.animationDuration=(Math.random()*3+2)+'s';
-        container.appendChild(p);
-    }
 }
