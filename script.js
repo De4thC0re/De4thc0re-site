@@ -17,11 +17,11 @@ async function fetchGitHubStats(){
     try {
         const reposRes = await fetch(`https://api.github.com/users/${username}/repos`);
         const repos = await reposRes.json();
-        animateCounter(document.getElementById('repos'), repos.length);
+        animateCounter(document.getElementById('repos'), repos.length, 50);
 
         const userRes = await fetch(`https://api.github.com/users/${username}`);
         const user = await userRes.json();
-        animateCounter(document.getElementById('followers'), user.followers);
+        animateCounter(document.getElementById('followers'), user.followers, 30);
 
         let totalCommits = 0;
         let totalLines = 0;
@@ -42,20 +42,11 @@ async function fetchGitHubStats(){
             totalLines += await countLinesRecursive(username, repo.name);
         }
 
-        animateCounter(document.getElementById('commits'), totalCommits);
-        animateCounter(document.getElementById('lines'), totalLines);
+        animateCounter(document.getElementById('commits'), totalCommits, 10);
+        animateCounter(document.getElementById('lines'), totalLines, 5);
 
     } catch(e){
-        animateCounter(document.getElementById('commits'), 523);
-        animateCounter(document.getElementById('repos'), 12);
-        animateCounter(document.getElementById('followers'), 42);
-        animateCounter(document.getElementById('lines'), 1024);
-        allCodeLines = [
-            "console.log('Witaj, Świecie');",
-            "let x = 10;",
-            "x += 5;",
-            "console.log(x);"
-        ];
+        console.error('GitHub API error:', e);
     }
 }
 
@@ -76,14 +67,14 @@ async function countLinesRecursive(owner, repo, path=''){
     return lines;
 }
 
-function animateCounter(el, target){
+function animateCounter(el, target, speed){
     el.innerText = '0';
     const update = ()=>{
         const current = +el.innerText;
-        const increment = target / 100;
+        const increment = Math.ceil(target / speed);
         if(current < target){
-            el.innerText = `${Math.ceil(current + increment)}`;
-            setTimeout(update, 20);
+            el.innerText = Math.min(current + increment, target);
+            setTimeout(update, 50);
         } else {
             el.innerText = target;
         }
@@ -93,8 +84,30 @@ function animateCounter(el, target){
 
 const terminalEl = document.getElementById('terminal');
 const cursor = document.createElement('span');
-cursor.className='cursor';
+cursor.className = 'cursor';
 terminalEl.appendChild(cursor);
+
+function startTyping(){
+    terminalEl.innerHTML = '';
+    terminalEl.appendChild(cursor);
+    typeFetching();
+}
+
+function typeFetching(){
+    const fetchingText = "Fetching code...";
+    let charIndex = 0;
+    cursor.style.display = 'none';
+    const interval = setInterval(()=>{
+        terminalEl.innerHTML += fetchingText[charIndex];
+        charIndex++;
+        if(charIndex === fetchingText.length){
+            clearInterval(interval);
+            terminalEl.innerHTML += "<br>";
+            cursor.style.display = 'inline-block';
+            setTimeout(typeNextLine, 800);
+        }
+    },50);
+}
 
 function typeLine(line, callback){
     let charIndex = 0;
@@ -117,12 +130,6 @@ function typeNextLine(){
     typeLine(line, ()=>{
         setTimeout(typeNextLine, 400);
     });
-}
-
-function startTyping(){
-    terminalEl.innerHTML = '';
-    terminalEl.appendChild(cursor);
-    typeNextLine();
 }
 
 function initParticles(){
