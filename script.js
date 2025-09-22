@@ -12,15 +12,16 @@ window.addEventListener('load', ()=>{
 const username = 'de4thc0re';
 let allCodeLines = [];
 
+// Pobieranie statystyk GitHub
 async function fetchGitHubStats() {
     try {
         const reposRes = await fetch(`https://api.github.com/users/${username}/repos`);
         const repos = await reposRes.json();
-        animateCounter(document.getElementById('repos'), repos.length, 50);
+        animateCounter(document.getElementById('repos'), repos ? repos.length : 0, 50);
 
         const userRes = await fetch(`https://api.github.com/users/${username}`);
         const user = await userRes.json();
-        animateCounter(document.getElementById('followers'), user.followers, 30);
+        animateCounter(document.getElementById('followers'), user ? user.followers : 0, 30);
 
         let totalCommits = 0;
         let totalLines = 0;
@@ -30,7 +31,7 @@ async function fetchGitHubStats() {
                 const branch = repo.default_branch;
                 const commitsRes = await fetch(`https://api.github.com/repos/${username}/${repo.name}/commits?sha=${branch}&per_page=100`);
                 const commits = await commitsRes.json();
-                totalCommits += commits.length;
+                totalCommits += commits ? commits.length : 0;
 
                 totalLines += await countLinesRecursive(username, repo.name);
             } catch (e) {
@@ -46,6 +47,7 @@ async function fetchGitHubStats() {
     }
 }
 
+// Liczenie linii kodu z repo (JS, TS, HTML, CSS, Java, Python)
 async function countLinesRecursive(owner, repo, path='') {
     const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`);
     const items = await res.json();
@@ -64,6 +66,7 @@ async function countLinesRecursive(owner, repo, path='') {
     return lines;
 }
 
+// Animacja licznika
 function animateCounter(el, target, speed){
     el.innerText = '0';
     const update = ()=>{
@@ -103,16 +106,16 @@ function typeLine(line, callback){
             cursor.style.display = 'inline-block';
             if(callback) callback();
         }
-    }, 30);
+    }, 20);
 }
 
 function typeNextLine(){
     if(allCodeLines.length === 0) return;
     const line = allCodeLines[Math.floor(Math.random() * allCodeLines.length)];
     typeLine(line, ()=>{
-        while(terminalEl.childElementCount > 6){
+        while(terminalEl.childElementCount > 20){ // max 20 linii w terminalu
             terminalEl.removeChild(terminalEl.children[0]);
         }
-        setTimeout(typeNextLine, 400);
+        setTimeout(typeNextLine, 200);
     });
 }
