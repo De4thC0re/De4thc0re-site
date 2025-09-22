@@ -28,24 +28,11 @@ body, html {
 
 #content {
     display: none;
-    position: relative;
 }
 
-.hero {
+header {
+    padding: 20px;
     text-align: center;
-    margin: 50px 0 30px;
-}
-
-.neon-title {
-    font-size: 48px;
-    text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 20px #0f0, 0 0 40px #0f0;
-    margin: 0;
-}
-
-.hero-desc {
-    font-size: 18px;
-    color: #0f0;
-    margin-top: 10px;
 }
 
 .nav-btn {
@@ -53,7 +40,7 @@ body, html {
     border: 2px solid #0f0;
     color: #0f0;
     padding: 10px 20px;
-    margin-top: 15px;
+    margin: 0 10px;
     cursor: pointer;
     transition: 0.3s;
     font-size: 16px;
@@ -66,50 +53,43 @@ body, html {
     transform: scale(1.1);
 }
 
-.stats-section {
+.neon-title {
+    font-size: 48px;
+    margin: 20px 0;
+    text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 20px #0f0, 0 0 40px #0f0;
     text-align: center;
-    margin-bottom: 50px;
 }
 
-.stats {
+.stats-section {
     display: flex;
     justify-content: center;
-    gap: 30px;
     flex-wrap: wrap;
+    gap: 20px;
+    margin: 30px 0;
 }
 
-.stat {
-    background: rgba(0,0,0,0.8);
-    border: 2px solid #0f0;
+.stat-box {
+    background: rgba(0,0,0,0.7);
     padding: 20px;
-    border-radius: 12px;
-    width: 140px;
+    border: 3px solid #0f0;
+    border-radius: 10px;
     text-align: center;
-    box-shadow: 0 0 15px #0f0;
-    transition: transform 0.3s, box-shadow 0.3s;
+    width: 150px;
+    box-shadow: 0 0 20px #0f0, 0 0 40px #0f0;
 }
 
-.stat:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px #0f0;
+.stat-box h2 {
+    margin-bottom: 10px;
 }
 
-.stat .counter {
-    font-size: 40px;
-    font-weight: bold;
-    color: #0f0;
-    display: block;
-}
-
-.stat p {
-    margin-top: 5px;
-    font-size: 16px;
-    color: #0f0;
+.stat-box p {
+    font-size: 24px;
+    margin: 0;
 }
 
 .terminal-section {
-    text-align: center;
     margin: 30px 0;
+    text-align: center;
 }
 
 .terminal {
@@ -128,7 +108,7 @@ body, html {
     align-items: flex-start;
     justify-content: flex-start;
     border: 3px solid #0f0;
-    box-shadow: 0 0 20px #0f0, 0 0 40px #0f0;
+    box-shadow: 0 0 20px #0f0, 0 0 40px #0f0, 0 0 60px #0f0;
     border-radius: 5px;
     padding-top: 10px;
 }
@@ -146,25 +126,6 @@ body, html {
     25%,75% {opacity:0;}
 }
 
-#particles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.particle {
-    position: absolute;
-    background: #0f0;
-    width: 2px;
-    height: 2px;
-    opacity: 0.3;
-    animation: moveParticle linear infinite;
-}
-
-@keyframes moveParticle {
-    0% { transform: translateY(0); opacity: 0.3; }
-    100% { transform: translateY(200px); opacity: 0; }
+@media (max-width:600px){
+    .stats-section { flex-direction: column; align-items: center; }
 }
