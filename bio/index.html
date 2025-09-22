@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De4thC0re Bio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="profile">
+
+    <!-- Avatar -->
+    <div class="avatar-container">
+        <img class="avatar" src="avatar.jpg" alt="De4thC0re Avatar">
+    </div>
+
+    <!-- Logo Discord -->
+    <div class="logo-container">
+        <img src="logo.jpeg" alt="Discord Logo" class="discord-logo" id="discord-btn">
+    </div>
+
+    <!-- Opis -->
+    <div class="description">
+        <div class="info-group">
+            <p>🌍 Country: Poland</p>
+            <p>🎮 Gram w: Minecraft, Counter-Strike 2, Fortnite</p>
+        </div>
+        <div class="info-group">
+            <p>🏆 Topka w Normal Minestar – 21.08.2025, 2100 ELO</p>
+            <p>💀 Topka killi Mineblaze – 696 killi</p>
+        </div>
+        <div class="info-group">
+            <p>🐾 Zwierzaki: Luna i Bella ❤️</p>
+            <p>🎵 Young Multi Fan</p>
+            <p>🔥 47 FAN</p>
+        </div>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-container">
+        <canvas id="visualizer"></canvas> <!-- visualizer nad playerem -->
+        <div class="player-controls">
+            <button id="play-btn">▶️</button>
+            <div class="progress-container">
+                <div class="progress"></div>
+            </div>
+        </div>
+        <audio id="audio" src="piosenka.mp3"></audio>
+    </div>
+
+    <!-- Licznik wejść -->
+    <div class="counter">
+        Stronę odwiedzono: <span id="visit-count">0</span> razy
+    </div>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
