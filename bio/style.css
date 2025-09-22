@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    color: #fff;
+}
+
+.profile {
+    width: 360px;
+    text-align: center;
+}
+
+/* Avatar */
+.avatar-container {
+    margin-top: 20px;
+}
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    object-fit: cover;
+}
+
+/* Logo Discord */
+.logo-container {
+    margin: 20px 0;
+}
+.discord-logo {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    animation: glow 1.5s infinite alternate;
+}
+@keyframes glow {
+    0% { filter: drop-shadow(0 0 5px #5865F2); }
+    100% { filter: drop-shadow(0 0 20px #5865F2); }
+}
+
+/* Opis */
+.description {
+    text-align: left;
+    margin: 10px 0;
+}
+.info-group {
+    margin-bottom: 10px;
+}
+.info-group p {
+    margin: 2px 0;
+    font-size: 1rem;
+}
+
+/* Music Player */
+.music-container {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    height: 100px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Visualizer */
+#visualizer {
+    width: 90%;
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+/* Player controls */
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    width: 90%;
+}
+#play-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: #111;
+    color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: transform 0.2s, background 0.2s;
+}
+#play-btn:hover { background: #222; transform: scale(1.1); }
+
+/* Pasek postępu */
+.progress-container {
+    flex: 1;
+    height: 4px;
+    background: #222;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.progress {
+    width: 0%;
+    height: 100%;
+    background: #00ff00;
+}
+
+/* Licznik */
+.counter {
+    margin-top: 15px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* Responsywność */
+@media screen and (max-width: 400px) {
+    .profile {
+        width: 95%;
+    }
+    #visualizer {
+        height: 30px;
+    }
+    .player-controls {
+        width: 100%;
+    }
+}
